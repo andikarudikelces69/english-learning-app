@@ -1,1 +1,201 @@
 
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>English Learning</title>
+<style>
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:#f4f6fb;
+  color:#202b45;
+}
+header{
+  background:#263c72;
+  color:white;
+  padding:28px 20px;
+  border-radius:0 0 25px 25px;
+}
+header small{opacity:.8}
+header h1{margin:12px 0 5px;font-size:27px}
+header p{margin:5px 0;color:#dce5ff}
+.container{padding:20px;max-width:650px;margin:auto}
+.progress-box,.lesson{
+  background:white;
+  padding:17px;
+  border-radius:15px;
+  margin-bottom:15px;
+  box-shadow:0 3px 12px #00000008;
+}
+.progress-bar{
+  background:#e6eaf3;
+  height:9px;
+  border-radius:10px;
+  margin-top:12px;
+}
+.progress-fill{
+  background:#4d82e8;
+  height:9px;
+  border-radius:10px;
+  width:0%;
+}
+h2{font-size:19px;margin:22px 0 13px}
+.categories{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.category{
+  background:white;
+  padding:17px;
+  border-radius:14px;
+  text-align:center;
+}
+.category span{font-size:27px}
+.category p{margin:8px 0 0;font-weight:bold}
+.lesson{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+.lesson-icon{font-size:27px}
+.lesson-info{flex:1}
+.lesson-info h3{font-size:15px;margin:0 0 6px}
+.lesson-info p{font-size:12px;color:#778099;margin:0}
+button{
+  background:#315bb5;
+  color:white;
+  border:0;
+  padding:10px 13px;
+  border-radius:9px;
+  font-weight:bold;
+  cursor:pointer;
+}
+button:disabled{background:#28a36a}
+#content{
+  display:none;
+  background:white;
+  padding:20px;
+  border-radius:15px;
+  margin-top:15px;
+  line-height:1.7;
+}
+#content h3{color:#315bb5}
+footer{text-align:center;color:#9299a8;font-size:12px;padding:25px}
+</style>
+</head>
+<body>
+
+<header>
+  <small>YOUR DAILY ENGLISH JOURNEY</small>
+  <h1>English Learning 👋</h1>
+  <p>Belajar sedikit demi sedikit, setiap hari!</p>
+</header>
+
+<div class="container">
+
+  <div class="progress-box">
+    <strong>📚 Your Learning Progress</strong>
+    <p id="progressText">0 dari 3 pelajaran selesai</p>
+    <div class="progress-bar">
+      <div class="progress-fill" id="progressFill"></div>
+    </div>
+  </div>
+
+  <h2>Choose Your Skill</h2>
+
+  <div class="categories">
+    <div class="category"><span>🗣️</span><p>Speaking</p></div>
+    <div class="category"><span>🎧</span><p>Listening</p></div>
+    <div class="category"><span>📖</span><p>Reading</p></div>
+    <div class="category"><span>✍️</span><p>Grammar</p></div>
+  </div>
+
+  <h2>Today's Lessons</h2>
+
+  <div id="lessons"></div>
+
+  <div id="content">
+    <h3 id="lessonTitle"></h3>
+    <div id="lessonBody"></div>
+    <button id="completeButton" onclick="completeLesson()">Mark as Completed ✓</button>
+    <button onclick="closeLesson()" style="background:#777">Back</button>
+  </div>
+
+</div>
+
+<footer>English Learning App • Learn Every Day</footer>
+
+<script>
+const data = [
+ {
+  title:"Lesson 1 - Introducing Yourself",
+  type:"Speaking • Beginner",
+  icon:"🗣️",
+  body:"<p><b>Topic: Introducing Yourself</b></p><p>Hello, my name is Andika.</p><p>I am from Indonesia.</p><p>I am 33 years old.</p><p>I work as a crane operator.</p><p><b>Artinya:</b> Halo, nama saya Andika. Saya berasal dari Indonesia. Umur saya 33 tahun. Saya bekerja sebagai operator crane.</p><p><b>Practice:</b> Coba perkenalkan dirimu menggunakan bahasa Inggris!</p>"
+ },
+ {
+  title:"Lesson 2 - Daily Vocabulary",
+  type:"Vocabulary • Beginner",
+  icon:"📚",
+  body:"<p><b>Learn these 5 words:</b></p><p>1. Work = Bekerja</p><p>2. Eat = Makan</p><p>3. Sleep = Tidur</p><p>4. Drink = Minum</p><p>5. Walk = Berjalan</p><p><b>Practice:</b> Buat satu kalimat sederhana menggunakan kata-kata tersebut.</p>"
+ },
+ {
+  title:"Lesson 3 - Simple Present Tense",
+  type:"Grammar • Beginner",
+  icon:"✍️",
+  body:"<p><b>Simple Present Tense</b></p><p>Digunakan untuk kebiasaan dan fakta.</p><p>Rumus: Subject + Verb 1</p><p>Contoh:</p><p>I work every day. = Saya bekerja setiap hari.</p><p>She works every day. = Dia bekerja setiap hari.</p><p><b>Practice:</b> Buat kalimat tentang kegiatan sehari-hari.</p>"
+ }
+];
+
+let completed = JSON.parse(localStorage.getItem("completedLessons") || "[]");
+let current = null;
+
+function render(){
+ const list = document.getElementById("lessons");
+ list.innerHTML = "";
+ data.forEach((lesson,i)=>{
+  const done = completed.includes(i);
+  list.innerHTML += `
+   <div class="lesson">
+    <div class="lesson-icon">${lesson.icon}</div>
+    <div class="lesson-info">
+     <h3>${lesson.title}</h3>
+     <p>${lesson.type}</p>
+    </div>
+    <button ${done?"disabled":""} onclick="openLesson(${i})">${done?"Done ✓":"Start"}</button>
+   </div>`;
+ });
+ document.getElementById("progressText").textContent =
+ completed.length + " dari 3 pelajaran selesai";
+ document.getElementById("progressFill").style.width =
+ (completed.length/3*100)+"%";
+}
+
+function openLesson(i){
+ current = i;
+ document.getElementById("lessonTitle").textContent=data[i].title;
+ document.getElementById("lessonBody").innerHTML=data[i].body;
+ document.getElementById("content").style.display="block";
+ document.getElementById("completeButton").style.display =
+ completed.includes(i)?"none":"inline-block";
+ document.getElementById("content").scrollIntoView({behavior:"smooth"});
+}
+
+function completeLesson(){
+ if(current!==null && !completed.includes(current)){
+  completed.push(current);
+  localStorage.setItem("completedLessons",JSON.stringify(completed));
+ }
+ render();
+ closeLesson();
+}
+
+function closeLesson(){
+ document.getElementById("content").style.display="none";
+}
+
+render();
+</script>
+
+</body>
+</html>
