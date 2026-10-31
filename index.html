@@ -4,198 +4,241 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>English Learning</title>
+<title>Elevate English — Intermediate Course</title>
 <style>
+:root {
+  --bg:#f5f6fa; --card:#fff; --ink:#172033; --muted:#788196;
+  --primary:#5146e5; --soft:#eeedff; --line:#e9ebf2;
+  --green:#159b72; --dark:#171b35;
+}
 *{box-sizing:border-box}
-body{
-  margin:0;
-  font-family:Arial,sans-serif;
-  background:#f4f6fb;
-  color:#202b45;
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,Arial,sans-serif}
+button{font:inherit;cursor:pointer}
+.app{max-width:1100px;margin:auto;padding:22px}
+header{display:flex;justify-content:space-between;align-items:center;margin-bottom:28px}
+.logo{font-size:21px;font-weight:850;letter-spacing:-.8px}
+.logo span{color:var(--primary)}
+.profile{background:#e8e7ff;color:var(--primary);border-radius:50%;width:40px;height:40px;display:grid;place-items:center;font-weight:800}
+.hero{background:linear-gradient(120deg,#24234d,#5146e5);color:white;padding:28px;border-radius:22px;position:relative;overflow:hidden}
+.hero:after{content:"EN";position:absolute;right:22px;top:10px;font-size:100px;font-weight:900;color:#ffffff12}
+.eyebrow{font-size:11px;letter-spacing:1.7px;text-transform:uppercase;color:#c7c5ff;font-weight:800}
+.hero h1{font-size:29px;line-height:1.2;margin:12px 0}
+.hero p{color:#dedcff;line-height:1.6;font-size:14px;max-width:470px}
+.hero button,.primary{border:0;background:white;color:#3730a3;padding:12px 17px;border-radius:10px;font-weight:750;margin-top:8px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:18px 0 28px}
+.stat{background:var(--card);padding:16px;border:1px solid var(--line);border-radius:15px}
+.stat strong{display:block;font-size:23px;margin-bottom:5px}
+.stat small{color:var(--muted)}
+.section-head{display:flex;justify-content:space-between;align-items:center;margin:28px 0 14px}
+.section-head h2{font-size:19px;margin:0}
+.section-head span{font-size:12px;color:var(--muted)}
+.progress-wrap{background:#e7e8f0;height:7px;border-radius:20px;overflow:hidden;margin-top:10px}
+.progress-bar{height:100%;background:var(--primary);width:0%;transition:.3s}
+.level{margin:20px 0}
+.level-title{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.level-title h3{font-size:15px;margin:0}
+.level-title span{font-size:11px;color:var(--muted)}
+.lessons{display:grid;grid-template-columns:repeat(2,1fr);gap:11px}
+.lesson{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:15px;display:flex;gap:12px;align-items:flex-start}
+.lesson-num{width:35px;height:35px;flex-shrink:0;border-radius:10px;background:var(--soft);color:var(--primary);display:grid;place-items:center;font-weight:800;font-size:13px}
+.lesson.done .lesson-num{background:#e0f6ed;color:var(--green)}
+.lesson-info{flex:1;min-width:0}
+.lesson-info b{font-size:13px;line-height:1.4;display:block}
+.lesson-info small{font-size:11px;color:var(--muted);display:block;margin-top:5px}
+.lesson button{border:0;background:var(--soft);color:var(--primary);padding:8px 10px;border-radius:8px;font-size:11px;font-weight:750}
+.lesson.done button{background:#e0f6ed;color:var(--green)}
+.footer{text-align:center;color:var(--muted);font-size:11px;padding:35px 0}
+.hidden{display:none!important}
+#room{background:white;border:1px solid var(--line);border-radius:18px;padding:22px;margin-top:18px}
+.back{border:0;background:#f0f1f7;padding:9px 13px;border-radius:9px;font-size:12px;font-weight:700}
+.room-tag{color:var(--primary);font-size:11px;font-weight:800;letter-spacing:1px;margin-top:22px}
+#room h2{font-size:24px;margin:8px 0}
+#room p{color:#596276;line-height:1.7;font-size:14px}
+.learning-card{background:#f7f7fc;border:1px solid var(--line);border-radius:13px;padding:16px;margin:14px 0}
+.learning-card h3{font-size:14px;margin:0 0 10px}
+.example{background:white;padding:12px;border-radius:9px;margin:8px 0;font-size:13px;line-height:1.6}
+.example b{color:var(--primary)}
+.quiz-option{display:block;width:100%;text-align:left;background:white;border:1px solid var(--line);padding:12px;border-radius:9px;margin:8px 0;font-size:13px}
+.quiz-option.selected{border:2px solid var(--primary);background:var(--soft)}
+.quiz-option.correct{border-color:var(--green);background:#e7f8f0}
+.quiz-option.wrong{border-color:#e45b64;background:#fff0f0}
+.complete{background:var(--primary);color:white;border:0;border-radius:10px;padding:13px 17px;font-weight:750;width:100%;margin-top:15px}
+.notice{font-size:12px;color:var(--muted);margin-top:10px}
+@media(max-width:600px){
+ .app{padding:16px}.hero{padding:23px}.hero h1{font-size:25px}
+ .stats{gap:8px}.stat{padding:12px}.stat strong{font-size:19px}
+ .lessons{grid-template-columns:1fr}.section-head{margin-top:24px}
+ #room{padding:16px}
 }
-header{
-  background:#263c72;
-  color:white;
-  padding:28px 20px;
-  border-radius:0 0 25px 25px;
-}
-header small{opacity:.8}
-header h1{margin:12px 0 5px;font-size:27px}
-header p{margin:5px 0;color:#dce5ff}
-.container{padding:20px;max-width:650px;margin:auto}
-.progress-box,.lesson{
-  background:white;
-  padding:17px;
-  border-radius:15px;
-  margin-bottom:15px;
-  box-shadow:0 3px 12px #00000008;
-}
-.progress-bar{
-  background:#e6eaf3;
-  height:9px;
-  border-radius:10px;
-  margin-top:12px;
-}
-.progress-fill{
-  background:#4d82e8;
-  height:9px;
-  border-radius:10px;
-  width:0%;
-}
-h2{font-size:19px;margin:22px 0 13px}
-.categories{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.category{
-  background:white;
-  padding:17px;
-  border-radius:14px;
-  text-align:center;
-}
-.category span{font-size:27px}
-.category p{margin:8px 0 0;font-weight:bold}
-.lesson{
-  display:flex;
-  align-items:center;
-  gap:12px;
-}
-.lesson-icon{font-size:27px}
-.lesson-info{flex:1}
-.lesson-info h3{font-size:15px;margin:0 0 6px}
-.lesson-info p{font-size:12px;color:#778099;margin:0}
-button{
-  background:#315bb5;
-  color:white;
-  border:0;
-  padding:10px 13px;
-  border-radius:9px;
-  font-weight:bold;
-  cursor:pointer;
-}
-button:disabled{background:#28a36a}
-#content{
-  display:none;
-  background:white;
-  padding:20px;
-  border-radius:15px;
-  margin-top:15px;
-  line-height:1.7;
-}
-#content h3{color:#315bb5}
-footer{text-align:center;color:#9299a8;font-size:12px;padding:25px}
 </style>
 </head>
 <body>
-
+<div class="app">
 <header>
-  <small>YOUR DAILY ENGLISH JOURNEY</small>
-  <h1>English Learning 👋</h1>
-  <p>Belajar sedikit demi sedikit, setiap hari!</p>
+  <div class="logo">elevate<span>.</span>english</div>
+  <div class="profile">E</div>
 </header>
 
-<div class="container">
+<main id="dashboard">
+<section class="hero">
+  <div class="eyebrow">YOUR ENGLISH JOURNEY</div>
+  <h1>Take your English<br>to the next level.</h1>
+  <p>Bangun kemampuan bahasa Inggris dari Intermediate menuju Upper Intermediate melalui latihan yang praktis dan terstruktur.</p>
+  <button onclick="document.getElementById('curriculum').scrollIntoView({behavior:'smooth'})">Explore lessons →</button>
+</section>
 
-  <div class="progress-box">
-    <strong>📚 Your Learning Progress</strong>
-    <p id="progressText">0 dari 3 pelajaran selesai</p>
-    <div class="progress-bar">
-      <div class="progress-fill" id="progressFill"></div>
-    </div>
-  </div>
-
-  <h2>Choose Your Skill</h2>
-
-  <div class="categories">
-    <div class="category"><span>🗣️</span><p>Speaking</p></div>
-    <div class="category"><span>🎧</span><p>Listening</p></div>
-    <div class="category"><span>📖</span><p>Reading</p></div>
-    <div class="category"><span>✍️</span><p>Grammar</p></div>
-  </div>
-
-  <h2>Today's Lessons</h2>
-
-  <div id="lessons"></div>
-
-  <div id="content">
-    <h3 id="lessonTitle"></h3>
-    <div id="lessonBody"></div>
-    <button id="completeButton" onclick="completeLesson()">Mark as Completed ✓</button>
-    <button onclick="closeLesson()" style="background:#777">Back</button>
-  </div>
-
+<div class="stats">
+  <div class="stat"><strong id="completedCount">0/30</strong><small>Lessons completed</small></div>
+  <div class="stat"><strong id="percent">0%</strong><small>Course progress</small></div>
+  <div class="stat"><strong>B1–B2</strong><small>Course level</small></div>
 </div>
 
-<footer>English Learning App • Learn Every Day</footer>
+<div class="section-head" id="curriculum">
+  <h2>Your curriculum</h2><span>30 lessons · 15–20 min each</span>
+</div>
+<div class="progress-wrap"><div class="progress-bar" id="progressBar"></div></div>
+
+<div id="lessonGroups"></div>
+</main>
+
+<section id="room" class="hidden">
+  <button class="back" onclick="closeLesson()">← Back to curriculum</button>
+  <div class="room-tag" id="lessonLevel"></div>
+  <h2 id="lessonTitle"></h2>
+  <p id="lessonIntro"></p>
+  <div id="lessonContent"></div>
+  <div class="learning-card">
+    <h3>Quick knowledge check</h3>
+    <p id="question"></p>
+    <div id="options"></div>
+    <p id="feedback" class="notice"></p>
+  </div>
+  <button class="complete" id="completeButton" onclick="completeLesson()">Mark lesson as completed</button>
+</section>
+
+<div class="footer">ELEVATE ENGLISH · LEARN WITH PURPOSE</div>
+</div>
 
 <script>
-const data = [
- {
-  title:"Lesson 1 - Introducing Yourself",
-  type:"Speaking • Beginner",
-  icon:"🗣️",
-  body:"<p><b>Topic: Introducing Yourself</b></p><p>Hello, my name is Andika.</p><p>I am from Indonesia.</p><p>I am 33 years old.</p><p>I work as a crane operator.</p><p><b>Artinya:</b> Halo, nama saya Andika. Saya berasal dari Indonesia. Umur saya 33 tahun. Saya bekerja sebagai operator crane.</p><p><b>Practice:</b> Coba perkenalkan dirimu menggunakan bahasa Inggris!</p>"
- },
- {
-  title:"Lesson 2 - Daily Vocabulary",
-  type:"Vocabulary • Beginner",
-  icon:"📚",
-  body:"<p><b>Learn these 5 words:</b></p><p>1. Work = Bekerja</p><p>2. Eat = Makan</p><p>3. Sleep = Tidur</p><p>4. Drink = Minum</p><p>5. Walk = Berjalan</p><p><b>Practice:</b> Buat satu kalimat sederhana menggunakan kata-kata tersebut.</p>"
- },
- {
-  title:"Lesson 3 - Simple Present Tense",
-  type:"Grammar • Beginner",
-  icon:"✍️",
-  body:"<p><b>Simple Present Tense</b></p><p>Digunakan untuk kebiasaan dan fakta.</p><p>Rumus: Subject + Verb 1</p><p>Contoh:</p><p>I work every day. = Saya bekerja setiap hari.</p><p>She works every day. = Dia bekerja setiap hari.</p><p><b>Practice:</b> Buat kalimat tentang kegiatan sehari-hari.</p>"
- }
+const lessons = [
+["Complex Sentence Structures","Intermediate Foundation","Learn to combine ideas using although, despite, whereas and other structures.","Although the task was difficult, she completed it on time.","We use complex sentences to connect a main clause with a dependent clause. They make speaking and writing more natural.","Although it was raining, we continued working.","Despite the heavy rain, we continued working.","Which sentence is grammatically correct?",["Although he was tired, he finished the report.","Despite he was tired, he finished the report.","Although being tired, but he finished."],0,"Although + subject + verb. Despite + noun or verb-ing."],
+["Present Perfect vs Past Simple","Intermediate Foundation","Understand when to connect past events to the present and when to describe a finished past event.","I have worked here for five years.","Use the past simple for a finished time in the past. Use the present perfect when the time is unfinished or the result matters now.","I visited Singapore last year.","I have visited Singapore three times.","Choose the correct sentence for a finished time yesterday.",["I have met him yesterday.","I met him yesterday.","I meet him yesterday."],1,"A finished time such as yesterday requires the past simple."],
+["Past Perfect Tense","Intermediate Foundation","Describe an action that happened before another action in the past.","The train had left before we arrived.","Past perfect uses had + past participle. It clarifies which past event happened first.","When I arrived, the meeting had already started.","She had finished the task before her manager called.","Complete: By the time we arrived, the film ____.",["has started","had started","starts"],1,"Use had + past participle for the earlier past action."],
+["Conditional Sentences Types 1, 2 and 3","Intermediate Foundation","Talk about real possibilities, imaginary situations and past regrets.","If I had more time, I would study every day.","First conditional: real possibility. Second: unreal present. Third: imaginary past situation.","If it rains, we will stay inside.","If I were you, I would accept the offer.","Which sentence describes an unreal present situation?",["If I study, I will pass.","If I were rich, I would travel more.","If I had studied, I would have passed."],1,"Second conditional: If + past simple, would + base verb."],
+["Passive Voice in Real Situations","Intermediate Foundation","Focus on actions and results rather than the person performing them.","The equipment is inspected every morning.","Passive voice uses be + past participle. It is common in reports, procedures and workplace communication.","The machine was repaired yesterday.","All safety rules must be followed.","Choose the correct passive sentence.",["The team checks the equipment.","The equipment is checked every day.","The equipment checking every day."],1,"Present simple passive: am/is/are + past participle."],
+["Reported Speech","Intermediate Foundation","Report what someone said without repeating their exact words.","He said that he was busy.","Reported speech often shifts the tense back when the reporting verb is in the past.","Direct: She said, “I am tired.”","Reported: She said that she was tired.","Change to reported speech: He said, “I work here.”",["He said he works here yesterday.","He said he worked there.","He says he worked here."],1,"Present simple often changes to past simple in reported speech."],
+["Relative Clauses","Intermediate Foundation","Add useful information about people, places and things.","The technician who fixed the machine is experienced.","Use who for people, which for things and where for places.","The company that hired me is expanding.","This is the factory where I used to work.","Choose the correct word: The person ____ called you is my manager.",["which","who","where"],1,"Who refers to people."],
+["Modal Verbs: Possibility and Deduction","Intermediate Foundation","Express certainty, possibility and logical conclusions.","The delivery might arrive this afternoon.","Must can express a strong conclusion; might and may express possibility; can't express strong impossibility.","He must be at work; his car is outside.","That can't be correct. The figures are different.","You are almost certain that she is at home. Choose the best option.",["She must be at home.","She can't be at home.","She might not be at home."],0,"Must expresses a strong logical deduction."],
+["Advanced Linking Words","Intermediate Foundation","Make your arguments and explanations flow logically.","Furthermore, the proposal could reduce operating costs.","Linking words show contrast, result, addition and examples.","However, we need more information.","As a result, production increased.","Which linker introduces a contrast?",["Therefore","Furthermore","However"],2,"However introduces a contrasting idea."],
+["Common Phrasal Verbs","Intermediate Foundation","Understand common verb combinations used in everyday English.","We need to carry out the inspection.","A phrasal verb combines a verb with a particle and often has a special meaning.","Please look into the problem.","We ran out of materials.","What does 'look into' mean?",["Investigate","Ignore","Complete"],0,"Look into means investigate or examine."],
+
+["Expressing Opinions and Arguments","Practical Communication","Share opinions clearly, give reasons and respond respectfully.","From my perspective, safety should always come first.","A strong opinion usually includes a clear position, a reason and supporting evidence.","I believe this plan is more efficient because it saves time.","I see your point; however, I have a different concern.","Which phrase politely introduces a different opinion?",["You are completely wrong.","I see your point, but...","That makes no sense."],1,"I see your point, but... is a polite way to disagree."],
+["Professional Conversations","Practical Communication","Communicate confidently with colleagues, supervisors and clients.","Could you clarify the deadline for this task?","Professional English is clear, polite and specific. Avoid overly casual expressions in formal situations.","Would you mind sending me the updated schedule?","I will get back to you by tomorrow.","Which is the most professional request?",["Send it now.","Could you please send the report?","Give me that report."],1,"Could you please... is polite and professional."],
+["Negotiation Skills","Practical Communication","Discuss expectations, alternatives and agreements in English.","Would you be open to discussing a different arrangement?","Negotiation language should be firm but cooperative. Explain your needs and explore alternatives.","I understand your position. Could we consider another option?","That sounds reasonable. Let us discuss the details.","Which phrase suggests a compromise?",["There is no discussion.","Could we meet halfway?","I refuse everything."],1,"Meet halfway means reach a compromise."],
+["Handling Complaints","Practical Communication","Respond calmly to complaints and offer practical solutions.","I apologize for the inconvenience. Let me look into it.","Acknowledge the issue, show empathy, investigate and explain the next action.","I understand why this is frustrating.","We will investigate the issue and update you shortly.","What should you do first when receiving a complaint?",["Blame the customer.","Listen and acknowledge the concern.","Ignore the complaint."],1,"Listen first and acknowledge the concern."],
+["Job Interviews in English","Practical Communication","Answer interview questions with clear examples and confidence.","I have extensive experience operating overhead cranes.","Use specific examples to explain your experience, skills and achievements.","My main strength is working safely under pressure.","In my previous role, I operated cranes with capacities up to 220 tons.","Which answer gives a specific example?",["I am good at everything.","I have experience operating overhead cranes in a steel plant.","I just need a job."],1,"Specific experience is more convincing than general claims."],
+["Explaining Problems and Solutions","Practical Communication","Describe a problem, explain its cause and propose a solution.","The main issue is a delay in material delivery.","Use a logical structure: problem, cause, impact and proposed solution.","The delay occurred because the supplier missed the schedule.","To prevent this, we should review the delivery process.","Which phrase introduces a proposed solution?",["The problem started yesterday.","To prevent this, we should...","Nobody knows anything."],1,"To prevent this introduces a solution or preventive action."],
+["Giving Instructions and Directions","Practical Communication","Give clear instructions using sequence and action verbs.","First, switch off the power before inspecting the equipment.","Use sequence markers such as first, next, then and finally.","Make sure the area is clear before starting.","Finally, record the inspection results.","Which word normally introduces the last step?",["Initially","Meanwhile","Finally"],2,"Finally introduces the final step."],
+["Workplace Communication","Practical Communication","Use English for updates, handovers and daily coordination.","The maintenance team has completed the inspection.","Be concise and include relevant details, status and next actions.","The equipment is ready for operation.","The next shift should monitor the temperature.","Which sentence is a clear work update?",["Everything is kind of okay.","Inspection is complete, and the equipment is ready.","Maybe it is done or something."],1,"A good update is clear, direct and specific."],
+["Storytelling and Experiences","Practical Communication","Tell stories and describe experiences in a natural sequence.","It was an unexpected experience that taught me a lot.","Use past tenses, time expressions and descriptive details to make stories engaging.","At first, I was nervous. Eventually, everything went smoothly.","Looking back, I learned the importance of preparation.","Which phrase introduces reflection on a past experience?",["Looking back","At the moment","Next week"],0,"Looking back introduces a reflection on the past."],
+["Natural English Expressions","Practical Communication","Understand everyday expressions that make conversations sound natural.","That makes sense. I hadn't thought of it that way.","Learn expressions in context rather than translating each word literally.","I am just about to leave.","It is not a big deal.","What does 'not a big deal' mean?",["Very expensive","Not very important or serious","Extremely difficult"],1,"Not a big deal means something is not very important."],
+
+["Advanced Listening Comprehension","Upper Intermediate","Identify key ideas, supporting details and speaker intentions.","Listen for meaning, not just individual words.","Before listening, predict the topic. During listening, identify key points and take short notes.","Listen for signposting words such as however, therefore and finally.","Pay attention to changes in tone and emphasis.","What is the best listening strategy?",["Translate every word.","Focus on the main idea and supporting details.","Ignore the speaker's tone."],1,"Understanding the main idea is more useful than translating every word."],
+["Understanding Native Conversations","Upper Intermediate","Understand connected speech, reductions and natural conversation speed.","What are you going to do? can sound like Whatcha gonna do?","Native speakers often connect words and reduce sounds. Context helps you understand the message.","I have got to go can sound like I've gotta go.","Did you eat yet? may sound like D'you eat yet?","What helps most when understanding connected speech?",["Context and repeated listening.","Only reading subtitles.","Memorizing isolated words."],0,"Context and repeated listening help decode natural speech."],
+["Reading Articles and News","Upper Intermediate","Read longer texts and identify facts, claims and key arguments.","The report highlights a significant change in the industry.","Skim for the general idea, then scan for names, dates and evidence.","Identify the headline, opening paragraph and supporting details.","Separate factual information from the writer's opinion.","What is skimming?",["Reading quickly for the general idea.","Reading every word slowly.","Looking up every unknown word."],0,"Skimming means reading quickly to understand the main idea."],
+["Critical Reading and Inference","Upper Intermediate","Understand implied meanings and evaluate an author's argument.","The writer implies that the policy may need revision.","Inference means understanding information that is suggested rather than directly stated.","Look for evidence, assumptions and the author's tone.","Ask whether the conclusion is supported by the evidence.","What does inference mean?",["Copying a sentence.","Understanding an implied meaning.","Reading only the title."],1,"Inference is a conclusion drawn from clues in the text."],
+["Academic and Professional Vocabulary","Upper Intermediate","Use precise vocabulary in formal and professional communication.","The company implemented a comprehensive improvement strategy.","Learn collocations and word families, not just isolated definitions.","Implement a strategy; conduct an assessment; achieve a target.","Significant, considerable and substantial can describe large changes.","Which phrase is a natural collocation?",["Do an achievement","Conduct an assessment","Make an analysis always"],1,"Conduct an assessment is a common professional collocation."],
+["Advanced Speaking Fluency","Upper Intermediate","Speak at length with fewer pauses and better organization.","There are several factors worth considering.","Organize longer answers with an opening, supporting points and a conclusion.","Use fillers naturally: Let me think, What I mean is...","Practice speaking for two minutes on one topic.","What is a useful way to improve speaking fluency?",["Avoid speaking until perfect.","Practice expressing complete ideas regularly.","Memorize every sentence."],1,"Regular speaking practice builds fluency and confidence."],
+["Pronunciation and Intonation","Upper Intermediate","Improve clarity through word stress, sentence stress and intonation.","I didn't say he stole the money.","Stress can change the meaning or focus of a sentence. Intonation communicates attitude and intention.","Practice word stress in longer words.","Record yourself and compare your pronunciation.","What is sentence stress?",["Emphasizing selected words in a sentence.","Speaking every word equally.","Speaking as fast as possible."],0,"Sentence stress highlights important information."],
+["Writing Professional Emails","Upper Intermediate","Write clear emails with appropriate tone and structure.","I am writing to follow up on our previous discussion.","A professional email includes a clear subject, greeting, purpose, details and closing.","Could you please confirm receipt of the document?","Thank you for your time and consideration.","Which closing is appropriate for a formal email?",["See ya!","Kind regards,","Later!"],1,"Kind regards is a suitable professional email closing."],
+["Presentations and Public Speaking","Upper Intermediate","Present ideas clearly and handle questions confidently.","Today, I would like to focus on three key findings.","Structure your presentation with an opening, main points and conclusion.","Use signposting: First, moving on to..., to conclude...","Maintain a steady pace and make eye contact.","Which phrase signals the conclusion?",["To conclude","By the way","For instance"],0,"To conclude signals that you are summarizing the presentation."],
+["Final Integrated English Assessment","Upper Intermediate","Combine grammar, vocabulary, reading and communication skills.","Your final task is to communicate clearly and accurately.","Review the key grammar, professional vocabulary, listening strategies and speaking techniques from the course.","Aim for clarity, accuracy and natural expression.","Use the skills from all previous lessons in real situations.","Which skill is essential for effective communication?",["Grammar only","Vocabulary only","A combination of listening, speaking, reading and writing"],2,"Effective communication combines all four language skills."]
 ];
 
-let completed = JSON.parse(localStorage.getItem("completedLessons") || "[]");
+const groups = [
+{title:"LEVEL 01 · INTERMEDIATE FOUNDATION",sub:"Build strong grammar and vocabulary",start:0,end:10},
+{title:"LEVEL 02 · PRACTICAL COMMUNICATION",sub:"Use English in real-life situations",start:10,end:20},
+{title:"LEVEL 03 · UPPER INTERMEDIATE",sub:"Develop fluency and advanced comprehension",start:20,end:30}
+];
+
+let completed = JSON.parse(localStorage.getItem("elevateCompleted") || "[]");
 let current = null;
+let selected = null;
 
 function render(){
- const list = document.getElementById("lessons");
- list.innerHTML = "";
- data.forEach((lesson,i)=>{
-  const done = completed.includes(i);
-  list.innerHTML += `
-   <div class="lesson">
-    <div class="lesson-icon">${lesson.icon}</div>
-    <div class="lesson-info">
-     <h3>${lesson.title}</h3>
-     <p>${lesson.type}</p>
-    </div>
-    <button ${done?"disabled":""} onclick="openLesson(${i})">${done?"Done ✓":"Start"}</button>
+ document.getElementById("completedCount").textContent=completed.length+"/30";
+ document.getElementById("percent").textContent=Math.round(completed.length/30*100)+"%";
+ document.getElementById("progressBar").style.width=(completed.length/30*100)+"%";
+ document.getElementById("lessonGroups").innerHTML=groups.map(g=>`
+ <div class="level">
+  <div class="level-title"><h3>${g.title}</h3><span>${completed.filter(n=>n>=g.start&&n<g.end).length}/10 completed</span></div>
+  <p class="notice">${g.sub}</p>
+  <div class="lessons">${lessons.slice(g.start,g.end).map((l,i)=>{
+   let n=g.start+i,done=completed.includes(n);
+   return `<div class="lesson ${done?'done':''}">
+    <div class="lesson-num">${done?'✓':String(n+1).padStart(2,'0')}</div>
+    <div class="lesson-info"><b>${l[0]}</b><small>15–20 min · ${done?'Completed':'Lesson '+(n+1)}</small></div>
+    <button onclick="openLesson(${n})">${done?'Review':'Start'}</button>
    </div>`;
+  }).join("")}</div>
+ </div>`).join("");
+}
+function openLesson(n){
+ current=n;selected=null;
+ let l=lessons[n];
+ document.getElementById("dashboard").classList.add("hidden");
+ document.getElementById("room").classList.remove("hidden");
+ document.getElementById("lessonLevel").textContent=l[1].toUpperCase()+" · LESSON "+(n+1);
+ document.getElementById("lessonTitle").textContent=l[0];
+ document.getElementById("lessonIntro").textContent=l[2];
+ document.getElementById("lessonContent").innerHTML=`
+ <div class="learning-card"><h3>01 · Learning focus</h3><p>${l[4]}</p></div>
+ <div class="learning-card"><h3>02 · Key examples</h3>
+ <div class="example">${l[5]}</div><div class="example">${l[6]}</div></div>
+ <div class="learning-card"><h3>03 · Speaking practice</h3>
+ <p>Say these sentences aloud. Then create two sentences of your own using the same structure.</p>
+ <div class="example"><b>Practice:</b> ${l[5]}</div>
+ <div class="example"><b>Your challenge:</b> Explain the same idea using your own words in English.</div></div>
+ <div class="learning-card"><h3>04 · Independent practice</h3>
+ <p>Write three original sentences using today's lesson. Read them aloud and check your grammar.</p></div>`;
+ document.getElementById("question").textContent=l[7];
+ document.getElementById("options").innerHTML=l[8].map((o,i)=>`<button class="quiz-option" onclick="choose(${i})">${String.fromCharCode(65+i)}. ${o}</button>`).join("");
+ document.getElementById("feedback").textContent="";
+ document.getElementById("completeButton").textContent=completed.includes(n)?"Lesson already completed ✓":"Mark lesson as completed";
+ window.scrollTo(0,0);
+}
+function choose(i){
+ selected=i;
+ let l=lessons[current];
+ document.querySelectorAll(".quiz-option").forEach((b,j)=>{
+  b.classList.remove("selected","correct","wrong");
+  if(j===i)b.classList.add("selected");
  });
- document.getElementById("progressText").textContent =
- completed.length + " dari 3 pelajaran selesai";
- document.getElementById("progressFill").style.width =
- (completed.length/3*100)+"%";
-}
-
-function openLesson(i){
- current = i;
- document.getElementById("lessonTitle").textContent=data[i].title;
- document.getElementById("lessonBody").innerHTML=data[i].body;
- document.getElementById("content").style.display="block";
- document.getElementById("completeButton").style.display =
- completed.includes(i)?"none":"inline-block";
- document.getElementById("content").scrollIntoView({behavior:"smooth"});
-}
-
-function completeLesson(){
- if(current!==null && !completed.includes(current)){
-  completed.push(current);
-  localStorage.setItem("completedLessons",JSON.stringify(completed));
+ let f=document.getElementById("feedback");
+ if(i===l[9]){
+  f.textContent="Correct! "+l[10];
+  document.querySelectorAll(".quiz-option")[i].classList.add("correct");
+ }else{
+  f.textContent="Not quite. Try again. "+l[10];
+  document.querySelectorAll(".quiz-option")[i].classList.add("wrong");
  }
+}
+function completeLesson(){
+ if(selected!==lessons[current][9]){
+  alert("Please answer the quiz correctly before completing this lesson.");
+  return;
+ }
+ if(!completed.includes(current))completed.push(current);
+ localStorage.setItem("elevateCompleted",JSON.stringify(completed));
  render();
  closeLesson();
 }
-
 function closeLesson(){
- document.getElementById("content").style.display="none";
+ document.getElementById("room").classList.add("hidden");
+ document.getElementById("dashboard").classList.remove("hidden");
+ window.scrollTo(0,0);
 }
-
 render();
 </script>
-
 </body>
 </html>
